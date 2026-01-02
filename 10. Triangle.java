@@ -1,3 +1,28 @@
+// BOTTOM-UP
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        // picture bottom right-angled triangle on left side
+        // start processing from n-2 row and go to the top
+        // i,j and i,j+1 leads to i-1,j
+        // try this in-place i.e edit the given trian itself w min sum path
+
+        int n = triangle.size(); // no of rows
+        // no of cols in ith row = i+1 (i goes till <n)
+        // last second row is i=n-2
+        for(int i=n-2; i>=0; i--){
+            // traverse through col for this row
+            for(int j=0; j<triangle.get(i).size(); j++){
+                int below = triangle.get(i+1).get(j);
+                int right_below = triangle.get(i+1).get(j+1);
+                int min_val = Math.min(below, right_below) + triangle.get(i).get(j);
+                triangle.get(i).set(j, min_val);
+            }
+        }
+        return triangle.get(0).get(0);
+    }
+}
+
+// RECURSION+DP
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         // ro1 => i, row2 => i or i+1
